@@ -11,11 +11,26 @@ services:
       - flagr
   flagr:
     image: checkr/flagr:latest
+    environment:
+      FLAGR_DB_DBDRIVER: postgres
+      FLAGR_DB_DBCONNECTIONSTR: postgres://user:password@postgres:5432/flagr-test?sslmode=disable
     ports:
       - 18000:18000
+    links:
+      - postgres
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    ports:
+      - 6000:5432
+    environment:
+      POSTGRES_DB: flagr-test
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     volumes:
-      - 'flagr:/var/lib/flagr/data'
+      - 'flagr-test:/var/lib/postgresql/data'
 
 volumes:
-  flagr:
+  flagr-test:
     driver: local
