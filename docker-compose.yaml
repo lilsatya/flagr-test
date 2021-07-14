@@ -29,7 +29,7 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
     volumes:
-      - 'flagr-test:/var/lib/postgresql/data'
+      - 'flagr-test:/var/lib/flagr-test/data'
 
 volumes:
   flagr-test:
