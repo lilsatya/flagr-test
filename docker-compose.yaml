@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    image: flagr-test:latest
+    build: .
+    ports:
+      - 3000:3000
+    links:
+      - flagr
+    depends_on:
+      - flagr
+  flagr:
+    image: checkr/flagr:latest
+    ports:
+      - 18000:18000
+    volumes:
+      - 'flagr:/var/lib/flagr/data'
+
+volumes:
+  flagr:
+    driver: local
